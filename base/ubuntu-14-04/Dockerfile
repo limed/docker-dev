@@ -5,13 +5,15 @@ FROM ubuntu:14.04
 RUN echo "deb http://archive.ubuntu.com/ubuntu/ trusty-proposed restricted main multiverse universe" >> /etc/apt/sources.list
 
 # Install some utilities
-RUN apt-get --q update \
-    && apt-get install -y vim \
-    && apt-get install -y python \
-    && apt-get install -y python-pip \
-    && apt-get install -y curl \
-    && apt-get install -y htop \
-    && apt-get install -y wget \
+RUN apt-get --q update && \
+    apt-get install -qy vim \
+                        python \
+                        python-pip \
+                        curl \
+                        htop \
+                        wget \
+                        apt-transport-https \
+                        ca-certificates \
     && apt-get clean autoclean \
     && apt-get autoremove -y purge \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \

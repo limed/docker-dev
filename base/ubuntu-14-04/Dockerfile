@@ -5,7 +5,7 @@ FROM ubuntu:14.04
 RUN echo "deb http://archive.ubuntu.com/ubuntu/ trusty-proposed restricted main multiverse universe" >> /etc/apt/sources.list
 
 # Install some utilities
-RUN apt-get --q update && \
+RUN apt-get --quiet update && \
     apt-get install -qy vim \
                         python \
                         python-pip \
@@ -14,10 +14,14 @@ RUN apt-get --q update && \
                         wget \
                         apt-transport-https \
                         ca-certificates \
-    && apt-get clean autoclean \
-    && apt-get autoremove -y purge \
+    && apt-get clean -y \
+    && apt-get autoclean -y \
+    && apt-get autoremove -y \
+    && apt-get purge -y \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/
+
+ENV LANG=en_US.UTF-8
 
 ADD files/vimrc /root/.vimrc
 RUN chown root:root /root/.vimrc
